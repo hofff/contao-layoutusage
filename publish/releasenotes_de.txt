@@ -18,3 +18,8 @@ paar nützliche Direktlinks zu den Seiten.</p>
 
 
 === Freigabe-Notizen und Änderungs-Log
+<p>siehe Handbuch-Link</p>
+
+
+=== Handbuch-Link
+http://www.contao-forge.org/projects/backboneitlayoutusage/wiki
