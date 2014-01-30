@@ -49,7 +49,7 @@ class BEModuleLayoutUsage extends BackendModule {
 
 	protected function compile() {
 		$this->loadLanguageFile('tl_page');
-		include_once TL_ROOT . '/system/modules/backend/dca/tl_page.php';
+		$this->loadDataContainer('tl_page');
 		$objPageDCA = new tl_page();
 
 		$intFallback = $this->arrLayout['fallback'] ? $this->getInheritedCount(0) : 0;
