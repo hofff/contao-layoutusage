@@ -1,0 +1,37 @@
+{
+	"name": "backboneit/contao-layoutusage",
+	"description": "Shows on which pages the layouts are used",
+	"keywords": [ "layout", "page", "contao" ],
+	"type": "contao-module",
+	"license": "LGPL-3.0+",
+	"authors": [
+		{
+			"name": "Oliver Hoff",
+			"email": "oliver@hofff.com",
+			"homepage": "http://hofff.com/",
+			"role": "Developer"
+		}
+	],
+	"support": {
+		"issues": "https://github.com/backbone87/contao-layoutusage/issues",
+		"forum": "https://community.contao.org/de/showthread.php?18872-backboneit_layoutusage-Auf-welchen-Seiten-wird-Layout-xy-verwendet",
+		"irc": "irc://irc.freenode.org/contao.dev",
+		"source": "https://github.com/backbone87/contao-layoutusage"
+	},
+	"require": {
+		"php": ">=5.3",
+		"contao/core": ">=2.11,<4"
+	},
+	"replace": {
+		"contao-legacy/backboneit_layoutusage": "*"
+	},
+	"extra": {
+		"contao": {
+			"sources": {
+				"TL_ROOT/system/modules/backboneit_layoutusage": "system/modules/backboneit_layoutusage"
+			}
+		},
+		"branch-alias": {
+		}
+	}
+}
