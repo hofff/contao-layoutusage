@@ -1,9 +1,9 @@
 /*
 !/.gitignore
-!/TL_ROOT/
 !/dev/
-!/ext/
+!/contao-module/
+!/runonce/
+!/src/
 !/publish/
-!/build.xml
 !/README.md
 !/composer.json

@@ -1,6 +1,0 @@
-h1. Changelog
-
-h2. 1.0.0 stable
-
-* 7 *Fix*: Added .html5 template for Contao 2.10
-* 2 Initial release
