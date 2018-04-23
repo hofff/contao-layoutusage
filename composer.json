@@ -3,7 +3,7 @@
 	"description": "Shows on which pages the layouts are used",
 	"keywords": [ "layout", "page", "contao", "themes" ],
 	"type": "contao-module",
-	"license": "LGPL-3.0+",
+	"license": "LGPL-3.0-or-later",
 	"authors": [
 		{
 			"name": "Oliver Hoff",
