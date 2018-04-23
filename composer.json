@@ -17,8 +17,9 @@
 		"source": "https://github.com/hofff/contao-layoutusage"
 	},
 	"require": {
-		"php": "^5.6 || ^7.0",
-		"contao/core": "^3.5"
+		"php": "^7.1",
+		"contao/core-bundle": "^4.4",
+		"contao-community-alliance/composer-plugin": "^3.0"
 	},
 	"replace": {
 		"contao-legacy/backboneit_layoutusage": "self.version",
