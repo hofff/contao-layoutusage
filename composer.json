@@ -6,9 +6,21 @@
 	"license": "LGPL-3.0-or-later",
 	"authors": [
 		{
+			"name": "Nicky Hoff",
+			"email": "nick@hofff.com",
+			"homepage": "https://www.hofff.com/",
+			"role": "Maintainer"
+		},
+		{
+			"name": "David Molineus",
+			"email": "david@hofff.com",
+			"homepage": "https://www.hofff.com/",
+			"role": "Developer"
+		},
+		{
 			"name": "Oliver Hoff",
 			"email": "oliver@hofff.com",
-			"homepage": "http://hofff.com/",
+			"homepage": "https://www.hofff.com/",
 			"role": "Developer"
 		}
 	],
