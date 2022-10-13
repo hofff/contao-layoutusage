@@ -29,7 +29,7 @@
 		"source": "https://github.com/hofff/contao-layoutusage"
 	},
 	"require": {
-		"php": "^7.1",
+		"php": "^7.1 || ^8.0",
 		"contao/core-bundle": "^4.4",
 		"contao-community-alliance/composer-plugin": "^3.0"
 	},
