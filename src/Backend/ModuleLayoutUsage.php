@@ -4,15 +4,17 @@ declare(strict_types=1);
 
 namespace Hofff\Contao\LayoutUsage\Backend;
 
-use Contao\Backend;
 use Contao\BackendModule;
 use Contao\Controller;
+use Contao\CoreBundle\Csrf\ContaoCsrfTokenManager;
 use Contao\CoreBundle\Exception\RedirectResponseException;
 use Contao\DataContainer;
+use Contao\Message;
 use Contao\System;
 use Contao\Template;
 use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Connection;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 use function count;
 
@@ -34,12 +36,20 @@ final class ModuleLayoutUsage extends BackendModule
 
     private Connection $connection;
 
+    private ContaoCsrfTokenManager $csrfTokenManager;
+
+    private UrlGeneratorInterface $urlGenerator;
+
     public function __construct(DataContainer|null $dataContainer = null)
     {
         parent::__construct($dataContainer);
 
         /** @psalm-suppress PropertyTypeCoercion */
         $this->connection = self::getContainer()->get('database_connection');
+        /** @psalm-suppress PropertyTypeCoercion */
+        $this->csrfTokenManager = self::getContainer()->get('contao.csrf.token_manager');
+        /** @psalm-suppress PropertyTypeCoercion */
+        $this->urlGenerator = self::getContainer()->get('router');
     }
 
     public function setLayout(int $layout): void
@@ -85,15 +95,36 @@ final class ModuleLayoutUsage extends BackendModule
         $count  = count($usages);
 
         foreach ($usages as &$usage) {
+            $usage['maintenanceMode'] = false;
+
             $count        += $usage['inherited'];
-            $usage['icon'] = Backend::addPageIcon($usage, '', blnReturnImage: true);
+            $usage['icon'] = $this->addPageIcon($usage, '', blnReturnImage: true);
         }
 
         unset($usage);
 
-        $this->Template->layout = $this->layout;
-        $this->Template->usages = $usages;
-        $this->Template->count  = $count;
+        $this->Template->layout  = $this->layout;
+        $this->Template->usages  = $usages;
+        $this->Template->count   = $count;
+        $this->Template->referer = self::getReferer(true);
+        $this->Template->message = Message::generate();
+        $this->Template->pageUrl = fn (int $pageId): string => $this->urlGenerator->generate(
+            'contao_backend',
+            [
+                'do' => 'page',
+                'pn' => $pageId,
+                'rt' => $this->csrfTokenManager->getDefaultTokenValue(),
+            ],
+        );
+        $this->Template->editUrl = fn (int $pageId): string => $this->urlGenerator->generate(
+            'contao_backend',
+            [
+                'do'  => 'page',
+                'act' => 'edit',
+                'id'  => $pageId,
+                'rt'  => $this->csrfTokenManager->getDefaultTokenValue(),
+            ],
+        );
     }
 
     /** @return list<array<string,mixed>> */

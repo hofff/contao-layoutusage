@@ -1,5 +1,5 @@
 <div id="tl_buttons">
-  <a href="<?= System::getReferer(true) ?>"
+  <a href="<?= $this->referer ?>"
       class="header_back"
       title="<?= Contao\StringUtil::specialchars($GLOBALS['TL_LANG']['MSC']['backBT']) ?>"
   >
@@ -14,11 +14,11 @@
     $this->layout['name'],
     $this->layout['id']
   ) ?></h2>
-  <?= Message::generate(); ?>
+  <?= $this->message ?>
 
   <div class="tl_listing_container list_view">
 
-    <div onmouseout="Theme.hoverDiv(this, 0);" onmouseover="Theme.hoverDiv(this, 1);" class="tl_header">
+    <div class="tl_header hover-div">
       <table cellspacing="0" cellpadding="0" summary="Table lists summary of records" class="tl_header_table">
         <tbody>
           <tr>
@@ -36,9 +36,9 @@
     <table cellspacing="0" cellpadding="0" summary="Table lists records" class="tl_listing" style="margin: 0 !important;">
       <tbody>
         <?php foreach($this->usages as $usage): ?>
-          <tr onmouseout="Theme.hoverRow(this, 0);" onmouseover="Theme.hoverRow(this, 1);">
+          <tr class="hover-row">
             <td class="tl_file">
-              <a href="contao?do=page&amp;pn=<?= $usage['id'] ?>"
+              <a href="<?= $this->pageUrl((int) $usage['id']) ?>"
                   title="<?= sprintf(
                     $GLOBALS['TL_LANG']['tl_layout']['hofff_layoutusage_tree'],
                     $usage['title'],
@@ -50,9 +50,9 @@
             </td>
             <td class="tl_file tl_right_nowrap">
               <?= sprintf($GLOBALS['TL_LANG']['tl_layout']['hofff_layoutusage_inherited'], $usage['inherited']) ?>
-              <?php $title = sprintf($GLOBALS['TL_LANG']['tl_page']['edit'][1], $usage['id']); ?>
-              <a href="contao/main.php?do=page&amp;act=edit&amp;rt=<?= Contao\System::getContainer()->get('contao.csrf.token_manager')->getDefaultTokenValue() ?>&amp;id=<?= $usage['id'] ?>" title="<?= $title ?>">
-                <?= Contao\Image::getHtml('edit.gif', $title) ?>
+              <?php $title = sprintf($GLOBALS['TL_LANG']['tl_page']['edit'], $usage['id']); ?>
+              <a href="<?= $this->editUrl((int) $usage['id']) ?>" title="<?= $title ?>">
+                <?= Contao\Image::getHtml('edit.svg', $title) ?>
               </a>
             </td>
           </tr>
