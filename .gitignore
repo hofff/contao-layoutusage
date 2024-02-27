@@ -1,9 +1,5 @@
-/*
-!/.gitignore
-!/dev/
-!/contao-module/
-!/runonce/
-!/src/
-!/publish/
-!/README.md
-!/composer.json
+/vendor
+/composer.lock
+
+/.phpcq
+.phpcs-cache

@@ -1,55 +1,73 @@
 {
-	"name": "hofff/contao-layoutusage",
-	"description": "Shows on which pages the layouts are used",
-	"keywords": [ "layout", "page", "contao", "themes" ],
-	"type": "contao-module",
-	"license": "LGPL-3.0-or-later",
-	"authors": [
-		{
-			"name": "Nicky Hoff",
-			"email": "nick@hofff.com",
-			"homepage": "https://www.hofff.com/",
-			"role": "Maintainer"
-		},
-		{
-			"name": "David Molineus",
-			"email": "david@hofff.com",
-			"homepage": "https://www.hofff.com/",
-			"role": "Developer"
-		},
-		{
-			"name": "Oliver Hoff",
-			"email": "oliver@hofff.com",
-			"homepage": "https://www.hofff.com/",
-			"role": "Developer"
-		}
-	],
-	"support": {
-		"issues": "https://github.com/hofff/contao-layoutusage/issues",
-		"source": "https://github.com/hofff/contao-layoutusage"
-	},
-	"require": {
-		"php": "^8.1",
-		"contao/core-bundle": "^4.13 || ^^5.3"
-	},
-	"require-dev": {
-		"contao/manager-plugin": "^2.1",
-		"doctrine/coding-standard": "^12.0",
-		"phpcq/runner-bootstrap": "^1.0@dev"
-	},
-	"conflict": {
-		"contao/manager-plugin": "<2.1 || >= 3.0"
-	},
-	"replace": {
-		"contao-legacy/backboneit_layoutusage": "self.version",
-		"backboneit/contao-layoutusage": "self.version"
-	},
-	"autoload": {
-		"psr-4": {
-			"Hofff\\Contao\\LayoutUsage\\": "src/"
-		}
-	},
-	"extra": {
-		"contao-manager-plugin": "Hofff\\Contao\\LayoutUsage\\ContaoManager\\Plugin"
-	}
+  "name": "hofff/contao-layoutusage",
+  "description": "Shows on which pages the layouts are used",
+  "license": "LGPL-3.0-or-later",
+  "type": "contao-module",
+  "keywords": [
+    "layout",
+    "page",
+    "contao",
+    "themes"
+  ],
+  "authors": [
+    {
+      "name": "Nicky Hoff",
+      "email": "nick@hofff.com",
+      "homepage": "https://www.hofff.com/",
+      "role": "Maintainer"
+    },
+    {
+      "name": "David Molineus",
+      "email": "david@hofff.com",
+      "homepage": "https://www.hofff.com/",
+      "role": "Developer"
+    },
+    {
+      "name": "Oliver Hoff",
+      "email": "oliver@hofff.com",
+      "homepage": "https://www.hofff.com/",
+      "role": "Developer"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/hofff/contao-layoutusage/issues",
+    "source": "https://github.com/hofff/contao-layoutusage"
+  },
+  "require": {
+    "php": "^8.1",
+    "contao/core-bundle": "^4.13 || ^5.3",
+    "doctrine/dbal": "^3.4",
+    "symfony/config": "^5.4 || ^6.4",
+    "symfony/dependency-injection": "^5.4 || ^6.4",
+    "symfony/http-kernel": "^5.4 || ^6.4",
+    "symfony/translation-contracts": "^1.1 || ^2.0 || ^3.0"
+  },
+  "require-dev": {
+    "contao/manager-plugin": "^2.1",
+    "doctrine/coding-standard": "^12.0",
+    "phpcq/runner-bootstrap": "^1.0@dev"
+  },
+  "replace": {
+    "backboneit/contao-layoutusage": "self.version",
+    "contao-legacy/backboneit_layoutusage": "self.version"
+  },
+  "conflict": {
+    "contao/manager-plugin": "<2.1 || >= 3.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Hofff\\Contao\\LayoutUsage\\": "src/"
+    }
+  },
+  "config": {
+    "allow-plugins": {
+      "contao-components/installer": true,
+      "contao/manager-plugin": true,
+      "dealerdirect/phpcodesniffer-composer-installer": true,
+      "php-http/discovery": true
+    }
+  },
+  "extra": {
+    "contao-manager-plugin": "Hofff\\Contao\\LayoutUsage\\ContaoManager\\Plugin"
+  }
 }

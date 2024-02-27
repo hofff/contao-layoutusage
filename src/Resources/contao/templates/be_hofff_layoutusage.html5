@@ -1,7 +1,7 @@
 <div id="tl_buttons">
   <a href="<?= System::getReferer(true) ?>"
       class="header_back"
-      title="<?= specialchars($GLOBALS['TL_LANG']['MSC']['backBT']) ?>"
+      title="<?= Contao\StringUtil::specialchars($GLOBALS['TL_LANG']['MSC']['backBT']) ?>"
   >
     <?= $GLOBALS['TL_LANG']['MSC']['backBT'] ?>
   </a>
@@ -38,7 +38,7 @@
         <?php foreach($this->usages as $usage): ?>
           <tr onmouseout="Theme.hoverRow(this, 0);" onmouseover="Theme.hoverRow(this, 1);">
             <td class="tl_file">
-              <a href="contao/main.php?do=page&amp;pn=<?= $usage['id'] ?>"
+              <a href="contao?do=page&amp;pn=<?= $usage['id'] ?>"
                   title="<?= sprintf(
                     $GLOBALS['TL_LANG']['tl_layout']['hofff_layoutusage_tree'],
                     $usage['title'],
@@ -51,8 +51,8 @@
             <td class="tl_file tl_right_nowrap">
               <?= sprintf($GLOBALS['TL_LANG']['tl_layout']['hofff_layoutusage_inherited'], $usage['inherited']) ?>
               <?php $title = sprintf($GLOBALS['TL_LANG']['tl_page']['edit'][1], $usage['id']); ?>
-              <a href="contao/main.php?do=page&amp;act=edit&amp;rt=<?= REQUEST_TOKEN ?>&amp;id=<?= $usage['id'] ?>" title="<?= $title ?>">
-                <?= Image::getHtml('edit.gif', $title) ?>
+              <a href="contao/main.php?do=page&amp;act=edit&amp;rt=<?= Contao\System::getContainer()->get('contao.csrf.token_manager')->getDefaultTokenValue() ?>&amp;id=<?= $usage['id'] ?>" title="<?= $title ?>">
+                <?= Contao\Image::getHtml('edit.gif', $title) ?>
               </a>
             </td>
           </tr>

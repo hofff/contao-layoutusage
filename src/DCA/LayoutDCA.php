@@ -1,34 +1,51 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Hofff\Contao\LayoutUsage\DCA;
 
 use Contao\Backend;
-use Contao\Database;
+use Contao\CoreBundle\DependencyInjection\Attribute\AsCallback;
+use Doctrine\DBAL\Connection;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
-/**
- * @author Oliver Hoff <oliver@hofff.com>
- */
-class LayoutDCA extends Backend {
+use function sprintf;
 
-	/**
-	 * @param array $row
-	 * @param string $href
-	 * @param string $label
-	 * @param string $title
-	 * @param string $icon
-	 * @param string $attributes
-	 */
-	public function getUsageButton($row, $href, $label, $title, $icon, $attributes) {
-		$sql = 'SELECT COUNT(*) AS cnt FROM tl_page WHERE includeLayout = 1 AND layout = ?';
-		$usage = Database::getInstance()->prepare($sql)->execute($row['id'])->cnt;
+final class LayoutDCA
+{
+    public function __construct(
+        private readonly Connection $connection,
+        private readonly TranslatorInterface $translator,
+    ) {
+    }
 
-		return sprintf(
-			'<a href="%s" title="%s"%s>(%s)</a> ',
-			$this->addToUrl($href . '&id=' . $row['id']),
-			sprintf($GLOBALS['TL_LANG']['tl_layout']['hofff_layoutusage'], $row['name'], $row['id']),
-			$attributes,
-			$usage
-		);
-	}
+    /**
+     * @param array<string, mixed> $row
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
+    #[AsCallback('tl_layout', 'list.operations.hofff_layoutusage_btn.button')]
+    public function getUsageButton(
+        array $row,
+        string|null $href,
+        string $label,
+        string $title,
+        string|null $icon,
+        string $attributes,
+    ): string {
+        $sql   = 'SELECT COUNT(*) AS cnt FROM tl_page WHERE includeLayout = 1 AND layout = ?';
+        $usage = $this->connection->executeQuery($sql, [$row['id']])->fetchOne();
 
+        return sprintf(
+            '<a href="%s" title="%s"%s>(%s)</a> ',
+            Backend::addToUrl(((string) $href) . '&id=' . $row['id']),
+            sprintf(
+                $this->translator->trans('tl_layout.hofff_layoutusage', [], 'contao_hofff_layoutusage'),
+                $row['name'],
+                $row['id'],
+            ),
+            $attributes,
+            (string) $usage,
+        );
+    }
 }

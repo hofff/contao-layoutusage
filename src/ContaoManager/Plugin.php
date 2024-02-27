@@ -9,7 +9,6 @@ use Contao\ManagerPlugin\Bundle\BundlePluginInterface;
 use Contao\ManagerPlugin\Bundle\Config\BundleConfig;
 use Contao\ManagerPlugin\Bundle\Parser\ParserInterface;
 use Hofff\Contao\LayoutUsage\HofffContaoLayoutUsageBundle;
-use Hofff\Contao\RootRelations\HofffContaoRootRelationsBundle;
 
 final class Plugin implements BundlePluginInterface
 {
@@ -19,7 +18,7 @@ final class Plugin implements BundlePluginInterface
         return [
             BundleConfig::create(HofffContaoLayoutUsageBundle::class)
                 ->setLoadAfter([ContaoCoreBundle::class])
-                ->setRepladce(['hofff_layoutusage']),
+                ->setReplace(['hofff_layoutusage']),
         ];
     }
 }
