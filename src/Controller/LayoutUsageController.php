@@ -114,19 +114,21 @@ SELECT
 	start,
 	stop,
 	hide,
-	protected
+	protected,
+	subpageLayout
 FROM
 	tl_page
 WHERE
 	includeLayout = 1
-	AND layout = ?
+	AND (layout = :layoutId OR subpageLayout = :layoutId)
 SQL;
 
-        $result = $this->connection->executeQuery($sql, [$layoutId]);
+        $result = $this->connection->executeQuery($sql, ['layoutId' => $layoutId]);
 
         while ($page = $result->fetchAssociative()) {
-            $page['inherited'] = $this->getInheritedCount($page['id']);
-            $usages[]          = $page;
+            $page['inherited']     = $this->getInheritedCount($page['id']);
+            $page['subpageLayout'] = $layoutId === (int) $page['subpageLayout'];
+            $usages[]              = $page;
         }
 
         return $usages;

@@ -35,8 +35,12 @@ final class LayoutUsageButton
         string|null $icon,
         string $attributes,
     ): string {
-        $sql   = 'SELECT COUNT(*) AS cnt FROM tl_page WHERE includeLayout = 1 AND layout = ?';
-        $usage = $this->connection->executeQuery($sql, [$row['id']])->fetchOne();
+        $sql   = <<<'SQL'
+  SELECT COUNT(*) AS cnt 
+    FROM tl_page 
+   WHERE includeLayout = 1 AND (layout = :layoutId OR subpageLayout = :layoutId)
+SQL;
+        $usage = $this->connection->executeQuery($sql, ['layoutId' => $row['id']])->fetchOne();
 
         return sprintf(
             '<a href="%s" title="%s"%s>(%s)</a> ',

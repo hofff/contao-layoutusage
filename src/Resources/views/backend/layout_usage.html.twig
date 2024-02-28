@@ -33,6 +33,9 @@
                            title="{{ 'tl_layout.hofff_layoutusage_tree'|trans([usage.title, usage.id]) }}"
                         >
                             {{ usage.icon|raw }} {{ usage.title }} (ID {{ usage.id }})
+                            {% if usage.subpageLayout %}
+                                <span class="tl_gray">{{ 'tl_page.subpageLayout.0'|trans([], 'contao_tl_page') }}</span>
+                            {% endif %}
                         </a>
                     </td>
                     <td class="tl_file tl_right_nowrap">
