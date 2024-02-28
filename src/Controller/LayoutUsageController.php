@@ -15,9 +15,7 @@ use Contao\System;
 use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Connection;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -27,14 +25,7 @@ use function count;
 use function implode;
 
 /** @psalm-suppress PropertyNotSetInConstructor */
-#[Route(
-    '/%contao.backend.route_prefix%/themes/layout-usage/{layoutId}',
-    name: self::class,
-    requirements: ['layoutId' => '\d+'],
-    defaults: ['_scope' => 'backend'],
-)]
 #[IsGranted(ContaoCorePermissions::USER_CAN_ACCESS_LAYOUTS)]
-#[AsController]
 final class LayoutUsageController extends AbstractBackendController
 {
     public function __construct(
@@ -115,6 +106,7 @@ SELECT
 	stop,
 	hide,
 	protected,
+	layout,
 	subpageLayout
 FROM
 	tl_page
@@ -126,7 +118,9 @@ SQL;
         $result = $this->connection->executeQuery($sql, ['layoutId' => $layoutId]);
 
         while ($page = $result->fetchAssociative()) {
-            $page['inherited']     = $this->getInheritedCount($page['id']);
+            $inherited = (int) $page['subpageLayout'] === 0 || $layoutId === (int) $page['subpageLayout'];
+
+            $page['inherited']     = $inherited ? $this->getInheritedCount($page['id']) : 0;
             $page['subpageLayout'] = $layoutId === (int) $page['subpageLayout'];
             $usages[]              = $page;
         }
