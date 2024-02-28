@@ -1,0 +1,7 @@
+#!/bin/bash
+
+## Description: Delegates commands to the contao console
+## Usage: console
+## Example: "ddev console contao:migrate"
+
+ddev exec ./.ddev/contao/vendor/bin/contao-console "$@"

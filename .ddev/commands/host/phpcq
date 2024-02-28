@@ -1,0 +1,7 @@
+#!/bin/bash
+
+## Description: Executes Contao database migration
+## Usage: phpcq
+## Example: "ddev phpcq -v"
+
+ddev exec vendor/bin/phpcq "$@"

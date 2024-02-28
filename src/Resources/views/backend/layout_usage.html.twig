@@ -1,0 +1,51 @@
+{% extends "@Contao/be_main" %}
+{% trans_default_domain 'contao_tl_layout' %}
+
+{% block main_content %}
+    <div id="tl_buttons">
+        <a href="{{ referer }}" class="header_back" title="{{ 'MSC.backBT'|trans({}, 'contao_default' ) }}">{{ 'MSC.backBT'|trans() }}</a>
+    </div>
+    <div>
+        {{ message|raw }}
+
+        <div class="tl_listing_container list_view">
+            <div class="tl_header hover-div">
+                <table cellspacing="0" cellpadding="0" summary="Table lists summary of records" class="tl_header_table">
+                    <tbody>
+                    <tr>
+                        <td><span class="tl_label">{{ 'tl_layout.hofff_layoutusage_count'|trans }}</span></td>
+                        <td>{{ count }}</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tl_label">{{ 'tl_layout.hofff_layoutusage_usages'|trans }}</span></td>
+                        <td>{{ usages|length }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <table cellspacing="0" cellpadding="0" summary="Table lists records" class="tl_listing" style="margin: 0 !important;">
+                <tbody>
+                {% for usage in usages %}
+                <tr class="hover-row">
+                    <td class="tl_file">
+                        <a href="{{ usage.pageUrl }}"
+                           title="{{ 'tl_layout.hofff_layoutusage_tree'|trans([usage.title, usage.id]) }}"
+                        >
+                            {{ usage.icon|raw }} {{ usage.title }} (ID {{ usage.id }})
+                            {% if usage.subpageLayout %}
+                                <span class="tl_gray">{{ 'tl_page.subpageLayout.0'|trans([], 'contao_tl_page') }}</span>
+                            {% endif %}
+                        </a>
+                    </td>
+                    <td class="tl_file tl_right_nowrap">
+                        {{ 'tl_layout.hofff_layoutusage_inherited'|trans([usage.inherited]) }}
+                        <a href="{{ usage.editUrl }}" title="{{ usage.editTitle }}">{{ usage.editIcon|raw }}</a>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<psalm
+  errorLevel="3"
+  hideExternalErrors="true"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="https://getpsalm.org/schema/config"
+  xsi:schemaLocation="https://getpsalm.org/schema/config https://getpsalm.org/schema/config"
+>
+  <projectFiles>
+    <directory name="src"/>
+  </projectFiles>
+
+  <issueHandlers>
+    <DeprecatedClass>
+      <errorLevel type="suppress">
+        <referencedClass name="Contao\Template"/>
+      </errorLevel>
+    </DeprecatedClass>
+  </issueHandlers>
+  <universalObjectCrates>
+    <class name="Contao\Template"/>
+  </universalObjectCrates>
+</psalm>

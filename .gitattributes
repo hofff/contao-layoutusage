@@ -1,0 +1,10 @@
+.ddev export-ignore
+.github export-ignore
+.gitattributes export-ignore
+.composer-require-checker.json export-ignore
+.editorconfig export-ignore
+.gitignore export-ignore
+.phpcq.lock export-ignore binary
+.phpcq.yaml.dist export-ignore
+phpcs.xml.dist export-ignore
+psalm.xml export-ignore

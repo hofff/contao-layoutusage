@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<routes xmlns="http://symfony.com/schema/routing"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://symfony.com/schema/routing
+        https://symfony.com/schema/routing/routing-1.0.xsd">
+  <route
+    id="Hofff\Contao\LayoutUsage\Controller\LayoutUsageController"
+    controller="Hofff\Contao\LayoutUsage\Controller\LayoutUsageController"
+    path="/contao/themes/layout-usage/{layoutId}"
+  >
+    <requirement key="layoutId">\d+</requirement>
+    <default key="_scope">backend</default>
+  </route>
+</routes>
