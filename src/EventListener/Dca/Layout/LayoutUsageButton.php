@@ -2,20 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Hofff\Contao\LayoutUsage\DCA;
+namespace Hofff\Contao\LayoutUsage\EventListener\Dca\Layout;
 
-use Contao\Backend;
 use Contao\CoreBundle\DependencyInjection\Attribute\AsCallback;
 use Doctrine\DBAL\Connection;
+use Hofff\Contao\LayoutUsage\Controller\LayoutUsageController;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 use function sprintf;
 
-final class LayoutDCA
+#[AsCallback('tl_layout', 'list.operations.hofff_layoutusage_btn.button')]
+final class LayoutUsageButton
 {
     public function __construct(
         private readonly Connection $connection,
         private readonly TranslatorInterface $translator,
+        private readonly UrlGeneratorInterface $urlGenerator,
     ) {
     }
 
@@ -24,8 +27,7 @@ final class LayoutDCA
      *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    #[AsCallback('tl_layout', 'list.operations.hofff_layoutusage_btn.button')]
-    public function getUsageButton(
+    public function __invoke(
         array $row,
         string|null $href,
         string $label,
@@ -38,7 +40,7 @@ final class LayoutDCA
 
         return sprintf(
             '<a href="%s" title="%s"%s>(%s)</a> ',
-            Backend::addToUrl(((string) $href) . '&id=' . $row['id']),
+            $this->urlGenerator->generate(LayoutUsageController::class, ['layoutId' => $row['id']]),
             sprintf(
                 $this->translator->trans('tl_layout.hofff_layoutusage', [], 'contao_hofff_layoutusage'),
                 $row['name'],

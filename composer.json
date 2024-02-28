@@ -39,6 +39,7 @@
     "doctrine/dbal": "^3.4",
     "symfony/config": "^5.4 || ^6.4",
     "symfony/dependency-injection": "^5.4 || ^6.4",
+    "symfony/http-foundation": "^5.4 || ^6.4",
     "symfony/http-kernel": "^5.4 || ^6.4",
     "symfony/routing": "^5.4 || ^6.4",
     "symfony/translation-contracts": "^1.1 || ^2.0 || ^3.0"
